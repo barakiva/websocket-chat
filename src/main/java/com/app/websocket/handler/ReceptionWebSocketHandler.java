@@ -15,8 +15,7 @@ public class ReceptionWebSocketHandler extends TextWebSocketHandler{
 
     @Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-    	System.out.println("CONNECTION SUCCESSFULLY ESTABLISHED");
-    	broadcastService.addSession(session);
+    	//
     }
 
 
@@ -24,14 +23,13 @@ public class ReceptionWebSocketHandler extends TextWebSocketHandler{
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
     	String payload = message.getPayload();
     	System.out.println("MAH PAYLOAD :: " + payload);
-    	broadcastService.brodcast(message);
+    	//broadcastService.brodcast(message);
     }
 
 
     @Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-    	System.out.println("CONNECTION CLOSED");
-    	broadcastService.removeSession(session);
+    	//
     }
 
 }
