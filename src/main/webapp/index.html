@@ -1,28 +1,33 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<html>
+  <head>
     <title>Websocket Chat</title>
-</head>
-<body>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <script type="text/javascript">
-    	//document.ready(function () {
-    		var url = "ws://localhost:8080/websocket-chat/reception"
-    		var ws = new WebSocket(url);
-    		
-    		ws.onopen = function () {
-                console.log('connection opened.');
-            };
-            ws.onmessage = function (event) {
-            	console.log('received: ' + event.data);
-            };
-            ws.onclose = function (event) {
-            	console.log('connection closed.');
-            	console.log(event);
-            };
-    	//})
-    </script>
-</body>
+	<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    
+     <!-- Polyfill(s) for older browsers -->
+    <!-- <script src="node_modules/core-js/shim.min.js"></script> -->
+    <script src="node_modules/zone.js/dist/zone.js"></script>
+    <script src="node_modules/reflect-metadata/Reflect.js"></script>
+	<script src="js/jquery-1.10.2.js"></script>
+    <script src="js/jquery.string.1.0.1-min.js"></script>
+	<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+	<!-- <script src="node_modules/systemjs/dist/system.src.js"></script> -->
+	<script src="dist/vendor.js"></script>
+	<!-- <script src="systemjs.config.js"></script>
+   	<script>
+     	System.import('app').catch(function(err){ 
+        	console.error(err); 
+      	});
+   	</script> -->
+  </head>
+  
+  <body>
+    <app-root>Loading</app-root>
+	<script src="dist/app.js"></script>
+  </body>
 </html>
