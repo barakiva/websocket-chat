@@ -1,2 +1,21 @@
-<h1>yo login!!!</h1>
-<button (click)="doLogin()" >Login</button>
+<div id="login-form" class="col-md-offset-4 col-md-4">
+  <form class="form-horizontal">
+    <div class="form-group">
+      <label for="userName" class="col-md-2 control-label">User</label>
+      <div class="col-md-10">
+        <input type="text" class="form-control" id="userName" placeholder="Email" [(ngModel)]="userName" name="userName">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputPassword3" class="col-md-2 control-label">Password</label>
+      <div class="col-md-10">
+        <input type="password" class="form-control" id="inputPassword3" placeholder="Password" [(ngModel)]="password" name="password">
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-md-12">
+        <button type="submit" class="btn btn-primary col-md-12" (click)="doLogin()">Sign in</button>
+      </div>
+    </div>
+  </form>
+</div>

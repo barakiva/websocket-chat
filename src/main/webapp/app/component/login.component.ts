@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {AppService} from '../service/app.service';
 import {LoginRequest} from '../data/loginrequest';
+import {Router}  from '@angular/router';
 
 @Component({
   templateUrl: 'app/template/login.component.html',
@@ -8,14 +9,22 @@ import {LoginRequest} from '../data/loginrequest';
 })
 export class LoginComponent {
 
-  constructor(private appService: AppService) { }
+  private userName: string;
+  private password: string;
+
+  constructor(private router: Router,
+    private appService: AppService) { }
 
   doLogin() {
     let loginRequest: LoginRequest = {
-      name: 'user1',
-      password: 'pswd'
+      name: this.userName,
+      password: this.password
     };
-    console.log(JSON.stringify(loginRequest));
-    this.appService.userLogin(loginRequest);
+    
+    this.appService.userLogin(loginRequest).then(response => {
+      if (response.status != 401) {
+        this.router.navigate(['/home']);
+      }
+    });
   }
 }
