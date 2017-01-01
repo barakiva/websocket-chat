@@ -6,7 +6,7 @@ import {LoginRequest} from '../data/loginRequest'
 export class AppService {
   constructor(private xhrhandler: XHRHandler) {}
 
-  userLogin(request: LoginRequest){
-    this.xhrhandler.doPost('user/login', request);
+  userLogin(request: LoginRequest): Promise<any> {
+    return this.xhrhandler.doPost('user/login', request);
   }
 }
