@@ -7,16 +7,16 @@ import 'rxjs/add/operator/toPromise';
 export class XHRHandler {
     constructor(private http: Http) {}
     
-    doGet(path : string){
+    doGet(path : string) {
         return this.http.get(path)
                .toPromise()
                .then(response => {
-				          return response.json();
-			          })
+                  return response.json();
+                })
                .catch();
     }
     
-    doPost(path : string, reqData : any){
+    doPost(path : string, reqData : any) {
         return this.http.post(path, JSON.stringify(reqData), {headers: CommonHeader.getCommonHeaders()})
                 .toPromise()
                 .then(response => {
@@ -25,7 +25,7 @@ export class XHRHandler {
                 .catch();
     }
     
-    doDelete(path : string){
+    doDelete(path : string) {
         return this.http.delete(path)
                .toPromise()
                .then(response => {

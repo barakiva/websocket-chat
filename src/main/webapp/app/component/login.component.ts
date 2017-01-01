@@ -8,15 +8,13 @@ import {LoginRequest} from '../data/loginrequest';
 })
 export class LoginComponent {
 
-  private loginRequest: LoginRequest;
-
-  constructor(private appService: AppService) {}
+  constructor(private appService: AppService) { }
 
   doLogin() {
     let loginRequest: LoginRequest = {
       name: 'user1',
       password: 'pswd'
-    }
+    };
     console.log(JSON.stringify(loginRequest));
     this.appService.userLogin(loginRequest);
   }
