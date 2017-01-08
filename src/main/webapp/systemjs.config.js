@@ -27,22 +27,14 @@
       'angular2-cookie':           'npm:angular2-cookie',
       'moment':                    'npm:moment',
       'intl':                      'npm:intl',
-      'core-js':				   'npm:core-js',
+      'core-js':				           'npm:core-js',
       'zone.js':                   'npm:zone.js'
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
-      app: {
-        main: './main.js',
-        defaultExtension: 'js'
-      },
-      rxjs: {
-        defaultExtension: 'js'
-      },
-      'angular-in-memory-web-api': {
-        main: './index.js',
-        defaultExtension: 'js'
-      },
+      app:                          { main: './main.js', defaultExtension: 'js' },
+      'rxjs':                       { defaultExtension: 'js' },
+      'angular-in-memory-web-api':  { main: './index.js', defaultExtension: 'js' },
       'angular2-cookie':            { main: 'core.js',  defaultExtension: 'js' },
       'moment':                     { defaultExtension: 'js' },
       'intl':                       { main: 'index.js', defaultExtension: 'js' },

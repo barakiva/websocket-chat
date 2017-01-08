@@ -1,1 +1,7 @@
 <h1>YO CHAT!!!</h1>
+<div>
+  <div *ngFor="let message of publishedMessage" >{{message.message}}</div>
+  <form (ngSubmit)="sendMessage(message)" >
+    <input type="text" name="message" [(ngModel)]="message" />
+  </form>
+</div>

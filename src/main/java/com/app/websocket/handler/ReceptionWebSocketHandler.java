@@ -8,7 +8,7 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.app.chat.BroadcastService;
 
-public class ReceptionWebSocketHandler extends TextWebSocketHandler{
+public class ReceptionWebSocketHandler extends TextWebSocketHandler {
 	
 	@Autowired
 	BroadcastService broadcastService;
