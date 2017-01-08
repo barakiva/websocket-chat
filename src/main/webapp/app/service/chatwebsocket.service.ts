@@ -12,7 +12,7 @@ export class ChatWebsocketService {
 
   public connect(url): Subject<MessageEvent> {
     if(!this.subject) {
-        this.subject = this.createWebsocket(url);
+      this.subject = this.createWebsocket(url);
     }
     return this.subject;
   }

@@ -15,21 +15,21 @@ public class ReceptionWebSocketHandler extends TextWebSocketHandler {
 
     @Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-    	//
+    	broadcastService.addSession(session.getId(), session);
+    	System.out.println("ADDED SESSION :: " + session.getId());
     }
-
 
     @Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
     	String payload = message.getPayload();
-    	System.out.println("MAH PAYLOAD :: " + payload);
-    	//broadcastService.brodcast(message);
+    	System.out.println("INCOMING MESSAGE FROM SESSION :: " + session.getId() + ", MESSAGE:: " + payload);
+    	broadcastService.brodcast(session.getId(), message);
     }
-
 
     @Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-    	//
+    	broadcastService.removeSession(session.getId());
+    	System.out.println("REMOVED SESSION :: " + session.getId());
     }
 
 }

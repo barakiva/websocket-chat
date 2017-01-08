@@ -12,17 +12,17 @@ public class BroadcastService {
 	
 	Map<String, WebSocketSession> liveSessions = new HashMap<>();
 	
-	public void addSession(String userName, WebSocketSession session) {
-		liveSessions.put(userName, session);
+	public void addSession(String sessionId, WebSocketSession session) {
+		liveSessions.put(sessionId, session);
 	}
 	
-	public void removeSession(String userName) {
-		liveSessions.remove(userName);
+	public void removeSession(String sessionId) {
+		liveSessions.remove(sessionId);
 	}
 	
-	public void brodcast(String fromUser, TextMessage message) throws Exception {
-		liveSessions.forEach((userName, session) -> {
-			if (!userName.equalsIgnoreCase(fromUser)) {
+	public void brodcast(String fromSessionId, TextMessage message) throws Exception {
+		liveSessions.forEach((sessionId, session) -> {
+			if (!sessionId.equalsIgnoreCase(fromSessionId)) {
 				try {
 					session.sendMessage(message);
 				} catch (Exception e) {

@@ -1,8 +1,9 @@
-import {Component} from '@angular/core';
-import {Subject} from 'rxjs/Rx';
-import {Observable} from 'rxjs/Rx';
+import {Component}            from '@angular/core';
+import {Subject}              from 'rxjs/Rx';
+import {Observable}           from 'rxjs/Rx';
 import {ChatWebsocketService} from '../service/chatwebsocket.service'
-import {Message} from '../data/message';
+import {Message}              from '../data/message';
+import {AppDataService}       from '../service/appdata.service';
 
 const WEBSOCKET_URL = 'ws://localhost:8080/websocket-chat/reception';
 
@@ -16,7 +17,11 @@ export class ChatComponent {
   private messages: Subject<Message>;
   private publishedMessage: Message[] = new Array();
 
-  constructor(chatWSService: ChatWebsocketService) {
+  constructor(chatWSService: ChatWebsocketService,
+              private appDataService: AppDataService) {
+    
+    console.log(appDataService.userId, appDataService.userName);
+
     this.messages = <Subject<Message>>chatWSService
                         .connect(WEBSOCKET_URL)
                         .map((response: MessageEvent): Message => {
@@ -40,20 +45,25 @@ export class ChatComponent {
 
     let message: Message = {
       type: 'CHAT_MESSAGE',
-      from: 1,
+      from: this.appDataService.userId,
       message: msg
     }
     this.messages.next(message);
     this.publishedMessage.push(message);
+    this.message = '';
   }
 
   private sendTypeIndicator() {
     let message: Message = {
       type: 'USER_TYPING',
       from: 1,
-      message: ''
+      message: null
     }
     this.messages.next(message);
+  }
+
+  private userLogout(){
+
   }
 
 }
