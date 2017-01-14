@@ -16,7 +16,7 @@ export class UsersComponent {
 
   private initUserList() {
     this.appService.listUser().then(response => {
-      this.users = JSON.parse(response);
+      this.users = JSON.parse(response._body);
     });
   }
 

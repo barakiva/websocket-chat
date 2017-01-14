@@ -19,9 +19,7 @@ export class ChatStreamComponent {
 
   constructor(chatWSService: ChatWebsocketService,
               private appDataService: AppDataService) {
-    
-    console.log(appDataService.userId, appDataService.userName);
-
+                
     this.messages = <Subject<Message>>chatWSService
                         .connect(WEBSOCKET_URL)
                         .map((response: MessageEvent): Message => {
