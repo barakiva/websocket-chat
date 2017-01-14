@@ -1,0 +1,10 @@
+<div class="chat-stream">
+  <div class="chat-message" *ngFor="let message of publishedMessage" >{{message.message}}</div>  
+</div>
+
+<div class="col-md-12 message-form">
+  <div class="typing-indicator"> user 1 is typing...</div>
+  <form (ngSubmit)="sendMessage(message)">
+    <input class="form-control col-md-12" placeholder="Message..." type="text" name="message" [(ngModel)]="message"/>
+  </form>  
+</div>

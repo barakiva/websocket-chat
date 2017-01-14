@@ -9,4 +9,8 @@ export class AppService {
   userLogin(request: LoginRequest): Promise<any> {
     return this.xhrhandler.doPost('user/login', request);
   }
+
+  listUser(): Promise<any> {
+    return this.xhrhandler.doGet('user/list');
+  }
 }

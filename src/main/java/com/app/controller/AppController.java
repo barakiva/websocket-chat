@@ -32,6 +32,11 @@ public class AppController {
 		}
 	}
 	
+	@RequestMapping(value = "/user/list", method = RequestMethod.GET)
+	public List<User> listUsers() {
+		return getValidUsers();
+	}
+	
 	private List<User> getValidUsers() {
 		List<User> validUsers = new ArrayList<>();
 		

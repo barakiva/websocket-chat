@@ -5,16 +5,19 @@ import {HttpModule}     from '@angular/http';
 import {RouterModule}   from '@angular/router';
 import {Ng2Webstorage}  from 'ng2-webstorage';
 
-import {AppComponent }  from './component/app.component';
-import {LoginComponent} from './component/login.component';
-import {ChatComponent}  from './component/chat.component';
+import {AppComponent}         from './component/app.component';
+import {LoginComponent}       from './component/login.component';
+import {ChatComponent}        from './component/chat.component';
+import {ChatStreamComponent}  from './component/chatstream.component';
+import {UsersComponent}       from './component/users.component';
 
-import {AppService}     from './service/app.service';
-import {XHRHandler}     from './service/xhrhandler.service';
-import {AppDataService} from './service/appdata.service';
+import {AppService}           from './service/app.service';
+import {XHRHandler}           from './service/xhrhandler.service';
+import {AppDataService}       from './service/appdata.service';
+import {ChatWebsocketService} from './service/chatwebsocket.service';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, ChatComponent],
+  declarations: [AppComponent, LoginComponent, ChatComponent, ChatStreamComponent, UsersComponent],
   imports: [
     BrowserModule,
     FormsModule,
@@ -26,7 +29,7 @@ import {AppDataService} from './service/appdata.service';
       {path: 'home', component: ChatComponent}
     ])
   ],
-  providers: [AppService, XHRHandler, AppDataService],
+  providers: [AppService, XHRHandler, AppDataService, ChatWebsocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
