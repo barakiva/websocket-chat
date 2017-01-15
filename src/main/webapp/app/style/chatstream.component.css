@@ -1,7 +1,24 @@
 .chat-stream {
+  position: relative;
   background: lightskyblue;
   max-height: 80%;
   height: 80%;
+}
+
+.stream-div {
+  position: absolute;
+  bottom: 0;
+}
+
+.chat-message {
+  margin: 4px 0px;
+  padding: 0;
+}
+
+.chat-username {
+  color: gray;
+  border-bottom: 1px solid gray;
+  font-size: 12px;
 }
 
 .typing-indicator {
