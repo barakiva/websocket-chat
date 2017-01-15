@@ -1,18 +1,19 @@
 {
   "name": "websocket-chat-application",
   "version": "1.0.0",
+  "description": "Simple chat application with spring, websocket and Angular 2.",
   "scripts": {
     "start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
     "tsc": "tsc",
     "tsc:w": "tsc -w",
     "build": "webpack"
   },
-  "license": [
-    {
-      "type": "MIT",
-      "url": "http://www.opensource.org/licenses/MIT"
-    }
-  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jeetprksh/websocket-chat.git"
+  },
+  "author": "Jeet Prakash",
+  "license": "MIT",
   "dependencies": {
     "@angular/common": "2.0.2",
     "@angular/compiler": "2.0.2",
@@ -51,10 +52,6 @@
     "lodash": "^4.16.4",
     "@types/core-js": "^0.9.34",
     "@types/node": "^6.0.46"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/jeetprksh/websocket-chat.git"
   },
   "readme": "README.md"
 }

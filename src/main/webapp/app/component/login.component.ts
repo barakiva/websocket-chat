@@ -1,12 +1,12 @@
-import {Component} from '@angular/core';
-import {AppService} from '../service/app.service';
-import {LoginRequest} from '../data/loginrequest';
-import {Router}  from '@angular/router';
+import {Component}      from '@angular/core';
+import {AppService}     from '../service/app.service';
+import {LoginRequest}   from '../data/loginrequest';
+import {Router}         from '@angular/router';
 import {AppDataService} from '../service/appdata.service';
 
 @Component({
-  templateUrl: 'app/template/login.component.html',
-  providers: [AppService, AppDataService]
+  selector: 'login',
+  templateUrl: 'app/template/login.component.html'
 })
 export class LoginComponent {
 
