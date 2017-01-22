@@ -1,15 +1,16 @@
 <div class="chat-stream">
   <div class="col-md-12 stream-div">
-    <div class="col-md-8 chat-message" *ngFor="let message of publishedMessage" >
-      <div class="chat-username">You</div>
+    <div class="col-md-8 chat-message" *ngFor="let message of publishedMessage" [ngClass]="{'pull-right': loggedinUserId===message.from}">
+      <div class="chat-username">{{message.fromUserName}}</div>
       {{message.message}}
     </div>  
   </div>
 </div>
 
 <div class="col-md-12 message-form">
-  <div class="typing-indicator">user 1 is typing...</div>
+  <div *ngIf="showTypingIndicator" class="typing-indicator">{{typingUser}} is typing...</div>
   <form (ngSubmit)="sendMessage(message)">
-    <input class="form-control col-md-12" placeholder="Message..." autocomplete="off" type="text" name="message" [(ngModel)]="message"/>
+    <input class="form-control col-md-12" placeholder="Message..." autocomplete="off" type="text" name="message" 
+            [(ngModel)]="message" (keypress)="sendTypeIndicator()"/>
   </form>  
 </div>

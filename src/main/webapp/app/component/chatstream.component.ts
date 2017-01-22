@@ -16,6 +16,9 @@ export class ChatStreamComponent {
   private message: string = ''; 
   private messages: Subject<Message>;
   private publishedMessage: Message[] = new Array();
+  private showTypingIndicator: boolean = false;
+  private typingUser: string;
+  private loggedinUserId: number;
 
   constructor(chatWSService: ChatWebsocketService,
               private appDataService: AppDataService) {
@@ -27,14 +30,26 @@ export class ChatStreamComponent {
                           let message: Message = {
                             type: data.type,
                             from: data.from,
+                            fromUserName: data.fromUserName,
                             message: data.message
                           };
                           return message;
                         });
 
     this.messages.subscribe(message => {
-      this.publishedMessage.push(message);
+      if (message.type == "CHAT_MESSAGE") {
+        this.publishedMessage.push(message);
+      } else if (message.type == "USER_TYPING") {
+        this.showUserTypingIndicator(message.fromUserName);
+        setTimeout(this.hideUserTypingIndicator.bind(this), 1000);
+      } else if (message.type == "USER_ONLINE") {
+        // not yet implemented
+      } else if (message.type == "USER_TYPING") {
+        // not yet implemented
+      }
     });
+
+    this.loggedinUserId = this.appDataService.userId;
   }
 
   private sendMessage() {
@@ -44,6 +59,7 @@ export class ChatStreamComponent {
     let message: Message = {
       type: 'CHAT_MESSAGE',
       from: this.appDataService.userId,
+      fromUserName: this.appDataService.userName,
       message: msg
     }
     this.messages.next(message);
@@ -54,10 +70,22 @@ export class ChatStreamComponent {
   private sendTypeIndicator() {
     let message: Message = {
       type: 'USER_TYPING',
-      from: 1,
+      from: this.appDataService.userId,
+      fromUserName: this.appDataService.userName,
       message: null
     }
     this.messages.next(message);
+  }
+
+  private showUserTypingIndicator(userName: string) {
+    this.typingUser = userName;
+    this.showTypingIndicator = true;
+  }
+
+  private hideUserTypingIndicator() {
+    if (this.showTypingIndicator) {
+      this.showTypingIndicator = false;
+    }
   }
 
 }

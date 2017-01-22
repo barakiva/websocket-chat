@@ -1,8 +1,8 @@
 .chat-stream {
   position: relative;
-  background: lightskyblue;
   max-height: 80%;
   height: 80%;
+  overflow: auto;
 }
 
 .stream-div {
@@ -11,8 +11,9 @@
 }
 
 .chat-message {
+  background: lightskyblue;
   margin: 4px 0px;
-  padding: 0;
+  padding: 8px;
 }
 
 .chat-username {
