@@ -12,9 +12,9 @@
 hs_err_pid*
 
 # others
-.settings
+**/.settings
 /target/*
-/target/
+**/target/
 
 # compiled output
 **/dist
