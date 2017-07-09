@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.app.config;
+package com.chat.config;
 
 import javax.servlet.ServletRegistration.Dynamic;
 

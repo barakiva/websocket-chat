@@ -1,4 +1,4 @@
-package com.app.controller;
+package com.chat.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.pojo.LoginRequest;
-import com.app.pojo.User;
+import com.chat.pojo.LoginRequest;
+import com.chat.pojo.User;
 
 @RestController
 public class AppController {

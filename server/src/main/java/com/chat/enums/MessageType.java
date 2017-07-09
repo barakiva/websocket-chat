@@ -1,4 +1,4 @@
-package com.app.enums;
+package com.chat.enums;
 
 public enum MessageType {
 	

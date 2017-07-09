@@ -1,4 +1,4 @@
-package com.app.config;
+package com.chat.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -12,12 +12,12 @@ import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 import org.springframework.web.socket.handler.PerConnectionWebSocketHandler;
 
-import com.app.websocket.handler.ReceptionWebSocketHandler;
+import com.chat.websocket.handler.ReceptionWebSocketHandler;
 
 @Configuration
 @EnableWebMvc
 @EnableWebSocket
-@ComponentScan(basePackages = {"com.app"})
+@ComponentScan(basePackages = {"com.chat"})
 public class ApplicationConfig extends WebMvcConfigurerAdapter implements WebSocketConfigurer {
 
 	@Override

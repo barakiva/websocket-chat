@@ -1,4 +1,4 @@
-package com.app.pojo;
+package com.chat.pojo;
 
 public class LoginRequest {
 	

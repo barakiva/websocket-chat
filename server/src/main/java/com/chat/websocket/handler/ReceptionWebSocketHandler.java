@@ -1,4 +1,4 @@
-package com.app.websocket.handler;
+package com.chat.websocket.handler;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.socket.CloseStatus;
@@ -6,7 +6,7 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import com.app.chat.BroadcastService;
+import com.chat.service.BroadcastService;
 
 public class ReceptionWebSocketHandler extends TextWebSocketHandler {
 	
