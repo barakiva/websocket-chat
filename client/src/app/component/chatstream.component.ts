@@ -4,7 +4,7 @@ import {Message}              from '../data/message';
 import {AppDataService}       from '../service/appdata.service';
 import {ChatWebsocketService} from '../service/chatwebsocket.service'
 
-const WEBSOCKET_URL = 'ws://localhost:8080/websocket-chat/reception';
+const WEBSOCKET_URL = 'ws://localhost:8080/reception';
 
 @Component({
   selector: 'chat-stream',

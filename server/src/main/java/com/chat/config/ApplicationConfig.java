@@ -22,7 +22,7 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements WebSoc
 
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-		registry.addHandler(receptionWebSocketHandler(), "/reception");
+		registry.addHandler(receptionWebSocketHandler(), "/reception").setAllowedOrigins("*");
 	}
 
 	@Bean
