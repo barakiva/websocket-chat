@@ -6,14 +6,12 @@ import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.chat.pojo.LoginRequest;
 import com.chat.pojo.User;
 
+@CrossOrigin
 @RestController
 public class AppController {
 	
