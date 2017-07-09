@@ -3,8 +3,8 @@ import {AppService}       from '../service/app.service'
 
 @Component({
   selector: 'users',
-  templateUrl: 'app/template/users.component.html',
-  styleUrls: ['./app/style/user.component.css']
+  templateUrl: '../template/users.component.html',
+  styleUrls: ['../style/user.component.css']
 })
 export class UsersComponent {
 

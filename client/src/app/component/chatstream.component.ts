@@ -8,8 +8,8 @@ const WEBSOCKET_URL = 'ws://localhost:8080/websocket-chat/reception';
 
 @Component({
   selector: 'chat-stream',
-  templateUrl: 'app/template/chatstream.component.html',
-  styleUrls: ['./app/style/chatstream.component.css']
+  templateUrl: '../template/chatstream.component.html',
+  styleUrls: ['../style/chatstream.component.css']
 })
 export class ChatStreamComponent {
 

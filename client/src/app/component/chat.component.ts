@@ -3,8 +3,8 @@ import {AppService} from '../service/app.service';
 
 @Component({
   selector: 'chat',
-  templateUrl: 'app/template/chat.component.html',
-  styleUrls: ['./app/style/chat.component.css']
+  templateUrl: '../template/chat.component.html',
+  styleUrls: ['../style/chat.component.css']
 })
 export class ChatComponent {
 

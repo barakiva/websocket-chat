@@ -6,7 +6,7 @@ import {AppDataService} from '../service/appdata.service';
 
 @Component({
   selector: 'login',
-  templateUrl: 'app/template/login.component.html'
+  templateUrl: '../template/login.component.html'
 })
 export class LoginComponent {
 
