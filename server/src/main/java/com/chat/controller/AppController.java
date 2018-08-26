@@ -1,15 +1,16 @@
 package com.chat.controller;
 
+import com.chat.pojo.LoginRequest;
+import com.chat.pojo.Message;
+import com.chat.pojo.User;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.web.bind.annotation.*;
-
-import com.chat.pojo.LoginRequest;
-import com.chat.pojo.User;
 
 @CrossOrigin
 @RestController
@@ -41,12 +42,17 @@ public class AppController {
 		if (!validUsers.isEmpty()) {
 			return validUsers;
 		} else {
-			validUsers = new ArrayList<>();
-			validUsers.add(new User(1, "user1"));
-			validUsers.add(new User(2, "user2"));
-			validUsers.add(new User(3, "user3"));
+			validUsers.add(new User(1, "Frodo"));
+			validUsers.add(new User(2, "Sam"));
+			validUsers.add(new User(3, "Gollum"));
 			return validUsers;
 		}
+	}
+
+	@MessageMapping("/websocket")
+	@SendTo("/topic/messages")
+	public Message greeting(Message message) throws Exception {
+		return new Message("Message", 2, "Message message!");
 	}
 
 }
