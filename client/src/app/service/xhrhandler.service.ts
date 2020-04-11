@@ -1,34 +1,19 @@
-import { Http } from '@angular/http';
-import { Injectable } from '@angular/core';
-import {CommonHeader} from './header.service';
-import 'rxjs/add/operator/toPromise';
+import {HttpClient}     from '@angular/common/http';
+import {Injectable}     from '@angular/core';
+import {CommonHeader}   from './header.service';
 
-const SERVER_BASE_URL = "http://localhost:8080/";
+const SERVER_BASE_URL = "http://localhost:8185/";
 
 @Injectable()
 export class XHRHandler {
     
-  constructor(private http: Http) {}
+  constructor(private httpClient: HttpClient) {}
 
   doGet(path : string) {
-    return this.http.get(SERVER_BASE_URL + path)
-            .toPromise()
-            .then(response => {
-              return response;
-            })
-            .catch(response => {
-              return response;
-            });
+    return this.httpClient.get(SERVER_BASE_URL + path);
   }
 
   doPost(path : string, reqData : any) {
-    return this.http.post(SERVER_BASE_URL + path, JSON.stringify(reqData), {headers: CommonHeader.getCommonHeaders()})
-            .toPromise()
-            .then(response => {
-              return response;
-            })
-            .catch(response => {
-              return response;
-            });
+    return this.httpClient.post(SERVER_BASE_URL + path, JSON.stringify(reqData), {headers: CommonHeader.getCommonHeaders()});
   }
 }

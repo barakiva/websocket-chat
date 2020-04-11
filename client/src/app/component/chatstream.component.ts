@@ -1,5 +1,5 @@
 import {Component}            from '@angular/core';
-import {Subject}              from 'rxjs/Rx';
+import {Subject}              from 'rxjs';
 import {Message}              from '../data/message';
 import {AppDataService}       from '../service/appdata.service';
 import {ChatWebsocketService} from '../service/chatwebsocket.service'
@@ -12,12 +12,12 @@ import {ChatWebsocketService} from '../service/chatwebsocket.service'
 })
 export class ChatStreamComponent {
 
-  private message: string = ''; 
-  private publishedMessage: Message[] = new Array();
-  private showTypingIndicator: boolean = false;
-  private typingUser: string;
-  private loggedinUserId: number;
-  private messages: Subject<Message>;
+  message: string = ''; 
+  publishedMessage: Message[] = new Array();
+  showTypingIndicator: boolean = false;
+  typingUser: string;
+  loggedinUserId: number;
+  messages: Subject<Message>;
 
   constructor(chatWSService: ChatWebsocketService,
               private appDataService: AppDataService) {
@@ -34,7 +34,7 @@ export class ChatStreamComponent {
     this.loggedinUserId = this.appDataService.userId;
   }
 
-  private sendMessage() {
+  sendMessage() {
     let msg = this.message;
     if (msg == '' || msg == undefined) return;
 
@@ -49,7 +49,7 @@ export class ChatStreamComponent {
     this.message = '';
   }
 
-  private sendTypeIndicator() {
+  sendTypeIndicator() {
     let message: Message = {
       type: 'USER_TYPING',
       from: this.appDataService.userId,
@@ -59,12 +59,12 @@ export class ChatStreamComponent {
     this.messages.next(message);
   }
 
-  private showUserTypingIndicator(userName: string) {
+  showUserTypingIndicator(userName: string) {
     this.typingUser = userName;
     this.showTypingIndicator = true;
   }
 
-  private hideUserTypingIndicator() {
+  hideUserTypingIndicator() {
     if (this.showTypingIndicator) {
       this.showTypingIndicator = false;
     }

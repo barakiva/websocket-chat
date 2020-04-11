@@ -1,8 +1,8 @@
-import { Headers } from '@angular/http';
+import { HttpHeaders } from '@angular/common/http';
 
 export class CommonHeader {
-    static getCommonHeaders() : Headers {
-        return new Headers({
+    static getCommonHeaders() : HttpHeaders {
+        return new HttpHeaders({
           'Content-Type': 'application/json', 
           'Accept': 'application/json'
         });

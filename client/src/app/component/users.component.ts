@@ -1,8 +1,7 @@
 import {Component}            from '@angular/core';
 import {AppService}           from '../service/app.service';
-import {User}                 from '../data/user';
 import {ChatWebsocketService} from '../service/chatwebsocket.service';
-import {Subject}              from 'rxjs/Rx';
+import {Subject}              from 'rxjs';
 import {Message}              from '../data/message';
 
 @Component({
@@ -12,8 +11,8 @@ import {Message}              from '../data/message';
 })
 export class UsersComponent {
 
-  private users: any[] = new Array();
-  private messages: Subject<Message>;
+  users: any[] = new Array();
+  messages: Subject<Message>;
 
   constructor(private appService: AppService,
               private chatWSService: ChatWebsocketService) {
@@ -28,19 +27,19 @@ export class UsersComponent {
         });
   }
 
-  private initUserList() {
-    this.appService.listUser().then(response => {
+  initUserList() {
+    this.appService.listUser().subscribe(response => {
       this.users = JSON.parse(response._body);
       this.setEachUserOnlineOffline();
       console.log(this.users);
     });
   }
 
-  private setEachUserOnlineOffline() {
+  setEachUserOnlineOffline() {
     this.users.forEach(user => user.isOnline = false);
   }
 
-  private setUserOnlineOffline(userId: Number, isOnline: boolean) {
+  setUserOnlineOffline(userId: Number, isOnline: boolean) {
     console.log(userId, isOnline);
   }
 

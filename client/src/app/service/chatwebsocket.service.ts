@@ -1,6 +1,6 @@
-import {Observable}     from 'rxjs/Rx';
-import {Subject}        from 'rxjs/Rx';
-import {Observer}       from 'rxjs/Rx';
+import {Observable}     from 'rxjs';
+import {Subject}        from 'rxjs';
+import {Observer}       from 'rxjs';
 import {Injectable}     from '@angular/core';
 import {Message}        from '../data/message';
 import {AppDataService} from '../service/appdata.service';
@@ -16,17 +16,17 @@ export class ChatWebsocketService {
   constructor(private appDataService: AppDataService) { }
 
   public createMessageStream() {
-    this.messages = <Subject<Message>> this.connect(WEBSOCKET_URL)
-                        .map((response: MessageEvent): Message => {
-                          let data = JSON.parse(response.data);
-                          let message: Message = {
-                            type: data.type,
-                            from: data.from,
-                            fromUserName: data.fromUserName,
-                            message: data.message
-                          };
-                          return message;
-                        });
+    // this.messages = <Subject<Message>> this.connect(WEBSOCKET_URL)
+    //                     .map((response: MessageEvent): Message => {
+    //                       let data = JSON.parse(response.data);
+    //                       let message: Message = {
+    //                         type: data.type,
+    //                         from: data.from,
+    //                         fromUserName: data.fromUserName,
+    //                         message: data.message
+    //                       };
+    //                       return message;
+    //                     });
   }
 
   public connect(url): Subject<MessageEvent> {

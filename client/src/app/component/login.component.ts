@@ -12,9 +12,9 @@ import {ChatWebsocketService} from '../service/chatwebsocket.service';
 })
 export class LoginComponent {
 
-  private userName: string;
-  private password: string;
-  private showErrorMsg: boolean;
+  userName: string;
+  password: string;
+  showErrorMsg: boolean;
 
   constructor(private router: Router,
               private appService: AppService,
@@ -23,7 +23,7 @@ export class LoginComponent {
 
   doLogin() {
     this.appService.userLogin({name: this.userName, password: this.password})
-        .then(response => {
+        .subscribe(response => {
           if (response.status != 401) {
             this.appDataService.userId = JSON.parse(response._body).id;
             this.appDataService.userName = JSON.parse(response._body).userName;
