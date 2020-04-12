@@ -23,9 +23,9 @@ export class ChatStreamComponent {
     this.websocket.onmessage = (event: MessageEvent) => {
       let message: Message = JSON.parse(event.data);
       console.log(message);
-      if (message.type == 'CHAT_MESSAGE') {
+      if (message.type == 'MESSAGE') {
         this.publishedMessage.push(message);
-      } else if (message.type == 'USER_TYPING') {
+      } else if (message.type == 'TYPING') {
         this.showUserTypingIndicator(message.fromUserName);
       }
     };
@@ -37,19 +37,18 @@ export class ChatStreamComponent {
     if (msg == '' || msg == undefined) return;
 
     let message: Message = {
-      type: 'CHAT_MESSAGE',
+      type: 'MESSAGE',
       from: this.appDataService.userId,
       fromUserName: this.appDataService.userName,
       message: msg
     }
     this.websocket.send(JSON.stringify(message));
-    this.publishedMessage.push(message);
     this.message = '';
   }
 
   sendTypeIndicator() {
     let message: Message = {
-      type: 'USER_TYPING',
+      type: 'TYPING',
       from: this.appDataService.userId,
       fromUserName: this.appDataService.userName,
       message: null
@@ -60,6 +59,11 @@ export class ChatStreamComponent {
   showUserTypingIndicator(userName: string) {
     this.typingUser = userName;
     this.showTypingIndicator = true;
+    setTimeout(() => {
+      console.log('hide');
+      this.hideUserTypingIndicator();
+    }, 1000);
+    
   }
 
   hideUserTypingIndicator() {

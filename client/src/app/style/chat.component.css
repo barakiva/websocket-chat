@@ -15,3 +15,9 @@ chat-stream {
   background-color: #f1f1f1;
   height: 100%;
 }
+
+.logged-in-user {
+  float: right;
+  font-size: 25px;
+  padding-top: 6px;
+}

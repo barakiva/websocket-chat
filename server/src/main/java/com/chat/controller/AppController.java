@@ -47,14 +47,14 @@ public class AppController {
 		} else {
 			validUsers.add(new User(1, "Frodo"));
 			validUsers.add(new User(2, "Samwise"));
-			validUsers.add(new User(2, "Marry"));
-			validUsers.add(new User(2, "Pippin"));
-			validUsers.add(new User(3, "Gollum"));
-			validUsers.add(new User(3, "Gandalf"));
-			validUsers.add(new User(3, "Aragorn"));
-			validUsers.add(new User(3, "Boromir"));
-			validUsers.add(new User(3, "Legolas"));
-			validUsers.add(new User(3, "Gimli"));
+			validUsers.add(new User(3, "Marry"));
+			validUsers.add(new User(4, "Pippin"));
+			validUsers.add(new User(5, "Gollum"));
+			validUsers.add(new User(6, "Gandalf"));
+			validUsers.add(new User(7, "Aragorn"));
+			validUsers.add(new User(8, "Boromir"));
+			validUsers.add(new User(9, "Legolas"));
+			validUsers.add(new User(10, "Gimli"));
 			return validUsers;
 		}
 	}

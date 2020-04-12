@@ -2,10 +2,10 @@ package com.chat.enums;
 
 public enum MessageType {
 	
-	CHAT_MESSAGE(1),
-	TYPE_INDICATOR(2),
-	USER_ONLINE(3),
-	USER_OFFLINE(4);
+	MESSAGE(1),
+	TYPING(2),
+	JOINED(3),
+	LEFT(4);
 	
 	private final int messageType;
 	
