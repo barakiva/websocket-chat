@@ -1,7 +1,7 @@
-import {Component}            from '@angular/core';
-import {AppService}           from '../service/app.service';
-import {Router}               from '@angular/router';
-import {AppDataService}       from '../service/appdata.service';
+import {Component}      from '@angular/core';
+import {AppService}     from '../service/app.service';
+import {Router}         from '@angular/router';
+import {AppDataService} from '../service/appdata.service';
 
 @Component({
   selector: 'login',
@@ -10,7 +10,6 @@ import {AppDataService}       from '../service/appdata.service';
 export class LoginComponent {
 
   userName: string;
-  password: string;
   showErrorMsg: boolean;
 
   constructor(private router: Router,
@@ -18,11 +17,11 @@ export class LoginComponent {
               private appDataService: AppDataService) { }
 
   doLogin() {
-    this.appService.userLogin({name: this.userName, password: this.password})
+    this.appService.userLogin({name: this.userName})
         .subscribe(response => {
           this.appDataService.userId = response.id;
           this.appDataService.userName = response.userName;
-          this.router.navigate(['/home']);
+          this.router.navigate(['/chat']);
         });
   }
 }

@@ -20,7 +20,15 @@ export class ChatStreamComponent {
 
   constructor(private appDataService: AppDataService) {
     this.websocket = new WebSocket(WEBSOCKET_URL);
-    this.websocket.onmessage = this.handleMessage;
+    this.websocket.onmessage = (event: MessageEvent) => {
+      let message: Message = JSON.parse(event.data);
+      console.log(message);
+      if (message.type == 'CHAT_MESSAGE') {
+        this.publishedMessage.push(message);
+      } else if (message.type == 'USER_TYPING') {
+        this.showUserTypingIndicator(message.fromUserName);
+      }
+    };
     this.loggedinUserId = this.appDataService.userId;
   }
 
@@ -47,16 +55,6 @@ export class ChatStreamComponent {
       message: null
     }
     this.websocket.send(JSON.stringify(message));
-  }
-
-  handleMessage(event: MessageEvent) {
-    let data = event.data; 
-    console.log(data);
-    if (data.type == 'CHAT_MESSAGE') {
-      this.publishedMessage.push(data);
-    } else if (data.type == 'USER_TYPING') {
-      this.showUserTypingIndicator(data.fromUserName);
-    }
   }
 
   showUserTypingIndicator(userName: string) {

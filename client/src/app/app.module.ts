@@ -31,7 +31,7 @@ import {AppDataService}       from './service/appdata.service';
     RouterModule.forRoot([
       {path: '', redirectTo: '/login', pathMatch: 'full'},
       {path: 'login', component: LoginComponent},
-      {path: 'home', component: ChatComponent}
+      {path: 'chat', component: ChatComponent}
     ])
   ],
   providers: [AppService, XHRHandler, AppDataService],
