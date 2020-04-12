@@ -1,19 +1,25 @@
 package com.chat.controller;
 
+import com.chat.pojo.LoginRequest;
+import com.chat.pojo.User;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.web.bind.annotation.*;
-
-import com.chat.pojo.LoginRequest;
-import com.chat.pojo.User;
-
 @CrossOrigin
 @RestController
 public class AppController {
+
+	private List<User> validUsers = new ArrayList<>();
 	
 	@RequestMapping(value = "/user/login", method = RequestMethod.POST)
 	public User userLogin(@RequestBody LoginRequest loginRequest, HttpServletResponse response) {
@@ -36,15 +42,19 @@ public class AppController {
 	}
 	
 	private List<User> getValidUsers() {
-		List<User> validUsers = new ArrayList<>();
-		
 		if (!validUsers.isEmpty()) {
 			return validUsers;
 		} else {
-			validUsers = new ArrayList<>();
-			validUsers.add(new User(1, "user1"));
-			validUsers.add(new User(2, "user2"));
-			validUsers.add(new User(3, "user3"));
+			validUsers.add(new User(1, "Frodo"));
+			validUsers.add(new User(2, "Samwise"));
+			validUsers.add(new User(2, "Marry"));
+			validUsers.add(new User(2, "Pippin"));
+			validUsers.add(new User(3, "Gollum"));
+			validUsers.add(new User(3, "Gandalf"));
+			validUsers.add(new User(3, "Aragorn"));
+			validUsers.add(new User(3, "Boromir"));
+			validUsers.add(new User(3, "Legolas"));
+			validUsers.add(new User(3, "Gimli"));
 			return validUsers;
 		}
 	}

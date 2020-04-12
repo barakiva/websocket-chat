@@ -9,7 +9,7 @@
 
 <div class="col-md-12 message-form">
   <div *ngIf="showTypingIndicator" class="typing-indicator">{{typingUser}} is typing...</div>
-  <form (ngSubmit)="sendMessage(message)">
+  <form (ngSubmit)="sendMessage()">
     <input class="form-control col-md-12" placeholder="Message..." autocomplete="off" type="text" name="message" 
             [(ngModel)]="message" (keypress)="sendTypeIndicator()"/>
   </form>  

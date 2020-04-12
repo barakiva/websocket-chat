@@ -1,5 +1,4 @@
 import {Component}  from '@angular/core';
-import {AppService} from '../service/app.service';
 
 @Component({
   selector: 'chat',
@@ -8,7 +7,7 @@ import {AppService} from '../service/app.service';
 })
 export class ChatComponent {
 
-  constructor(private appService: AppService) { }
+  constructor() { }
 
   private doLogout(){
 

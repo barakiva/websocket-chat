@@ -1,5 +1,6 @@
-import {Component}        from '@angular/core';
-import {AppService}       from '../service/app.service'
+import {Component}  from '@angular/core';
+import {AppService} from '../service/app.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'users',
@@ -8,16 +9,27 @@ import {AppService}       from '../service/app.service'
 })
 export class UsersComponent {
 
-  private users: any = new Array();
+  users: any[] = new Array();
+  messages: Observable<any>;
 
   constructor(private appService: AppService) {
     this.initUserList();
   }
 
-  private initUserList() {
-    this.appService.listUser().then(response => {
-      this.users = JSON.parse(response._body);
+  initUserList() {
+    this.appService.listUser().subscribe(response => {
+      this.users = response;
+      this.setEachUserOnlineOffline();
+      console.log(this.users);
     });
+  }
+
+  setEachUserOnlineOffline() {
+    this.users.forEach(user => user.isOnline = false);
+  }
+
+  setUserStatus(userId: Number, isOnline: boolean) {
+    console.log(userId, isOnline);
   }
 
 }

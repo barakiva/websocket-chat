@@ -8,6 +8,12 @@ public class Message {
 	
 	private String message;
 
+	public Message(String type, int from, String message) {
+		this.type = type;
+		this.from = from;
+		this.message = message;
+	}
+
 	public String getType() {
 		return type;
 	}

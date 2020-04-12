@@ -1,10 +1,8 @@
 import {Component}            from '@angular/core';
-import {Subject}              from 'rxjs/Rx';
 import {Message}              from '../data/message';
 import {AppDataService}       from '../service/appdata.service';
-import {ChatWebsocketService} from '../service/chatwebsocket.service'
 
-const WEBSOCKET_URL = 'ws://localhost:8080/reception';
+const WEBSOCKET_URL = 'ws://localhost:8185/websocket';
 
 @Component({
   selector: 'chat-stream',
@@ -13,46 +11,28 @@ const WEBSOCKET_URL = 'ws://localhost:8080/reception';
 })
 export class ChatStreamComponent {
 
-  private message: string = ''; 
-  private messages: Subject<Message>;
-  private publishedMessage: Message[] = new Array();
-  private showTypingIndicator: boolean = false;
-  private typingUser: string;
-  private loggedinUserId: number;
+  message: string = ''; 
+  publishedMessage: Message[] = new Array();
+  showTypingIndicator: boolean = false;
+  typingUser: string;
+  loggedinUserId: number;
+  websocket: WebSocket;
 
-  constructor(chatWSService: ChatWebsocketService,
-              private appDataService: AppDataService) {
-                
-    this.messages = <Subject<Message>>chatWSService
-                        .connect(WEBSOCKET_URL)
-                        .map((response: MessageEvent): Message => {
-                          let data = JSON.parse(response.data);
-                          let message: Message = {
-                            type: data.type,
-                            from: data.from,
-                            fromUserName: data.fromUserName,
-                            message: data.message
-                          };
-                          return message;
-                        });
-
-    this.messages.subscribe(message => {
-      if (message.type == "CHAT_MESSAGE") {
+  constructor(private appDataService: AppDataService) {
+    this.websocket = new WebSocket(WEBSOCKET_URL);
+    this.websocket.onmessage = (event: MessageEvent) => {
+      let message: Message = JSON.parse(event.data);
+      console.log(message);
+      if (message.type == 'CHAT_MESSAGE') {
         this.publishedMessage.push(message);
-      } else if (message.type == "USER_TYPING") {
+      } else if (message.type == 'USER_TYPING') {
         this.showUserTypingIndicator(message.fromUserName);
-        setTimeout(this.hideUserTypingIndicator.bind(this), 1000);
-      } else if (message.type == "USER_ONLINE") {
-        // not yet implemented
-      } else if (message.type == "USER_TYPING") {
-        // not yet implemented
       }
-    });
-
+    };
     this.loggedinUserId = this.appDataService.userId;
   }
 
-  private sendMessage() {
+  sendMessage() {
     let msg = this.message;
     if (msg == '' || msg == undefined) return;
 
@@ -62,27 +42,27 @@ export class ChatStreamComponent {
       fromUserName: this.appDataService.userName,
       message: msg
     }
-    this.messages.next(message);
+    this.websocket.send(JSON.stringify(message));
     this.publishedMessage.push(message);
     this.message = '';
   }
 
-  private sendTypeIndicator() {
+  sendTypeIndicator() {
     let message: Message = {
       type: 'USER_TYPING',
       from: this.appDataService.userId,
       fromUserName: this.appDataService.userName,
       message: null
     }
-    this.messages.next(message);
+    this.websocket.send(JSON.stringify(message));
   }
 
-  private showUserTypingIndicator(userName: string) {
+  showUserTypingIndicator(userName: string) {
     this.typingUser = userName;
     this.showTypingIndicator = true;
   }
 
-  private hideUserTypingIndicator() {
+  hideUserTypingIndicator() {
     if (this.showTypingIndicator) {
       this.showTypingIndicator = false;
     }

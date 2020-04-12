@@ -1,13 +1,13 @@
-import {Injectable}     from '@angular/core';
-import {SessionStorage} from "ng2-webstorage";
+import {Injectable}   from '@angular/core';
+import {LocalStorage} from 'ngx-webstorage';
 
 @Injectable() 
 export class AppDataService {
-
-  @SessionStorage("userId")
+  
+  @LocalStorage()
   public userId: number;
 
-  @SessionStorage("userName")
+  @LocalStorage()
   public userName: string;
 
   public clearData(){

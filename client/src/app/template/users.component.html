@@ -1,5 +1,5 @@
 <div class="users">
   <div class="user" *ngFor="let user of users">
-    {{user.userName}}
+    {{user.userName}} <div *ngIf="user.isOnline" class="user-online pull-right"> Online </div>
   </div>
 </div>
