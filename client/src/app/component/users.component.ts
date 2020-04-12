@@ -1,8 +1,6 @@
-import {Component}            from '@angular/core';
-import {AppService}           from '../service/app.service';
-import {ChatWebsocketService} from '../service/chatwebsocket.service';
-import {Subject}              from 'rxjs';
-import {Message}              from '../data/message';
+import {Component}  from '@angular/core';
+import {AppService} from '../service/app.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'users',
@@ -12,24 +10,15 @@ import {Message}              from '../data/message';
 export class UsersComponent {
 
   users: any[] = new Array();
-  messages: Subject<Message>;
+  messages: Observable<any>;
 
-  constructor(private appService: AppService,
-              private chatWSService: ChatWebsocketService) {
+  constructor(private appService: AppService) {
     this.initUserList();
-    this.messages = chatWSService.getMessageSubscriptionStream();
-    this.messages.subscribe(message => {
-          if (message.type == "USER_ONLINE") {
-            this.setUserOnlineOffline(message.from, true);
-          } else if (message.type == "USER_OFFLINE") {
-            this.setUserOnlineOffline(message.from, false);
-          }
-        });
   }
 
   initUserList() {
     this.appService.listUser().subscribe(response => {
-      this.users = JSON.parse(response._body);
+      this.users = response;
       this.setEachUserOnlineOffline();
       console.log(this.users);
     });
@@ -39,7 +28,7 @@ export class UsersComponent {
     this.users.forEach(user => user.isOnline = false);
   }
 
-  setUserOnlineOffline(userId: Number, isOnline: boolean) {
+  setUserStatus(userId: Number, isOnline: boolean) {
     console.log(userId, isOnline);
   }
 

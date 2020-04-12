@@ -1,9 +1,9 @@
-import {BrowserModule}    from '@angular/platform-browser';
-import {NgModule}         from '@angular/core';
-import {FormsModule}      from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
-import {RouterModule}     from '@angular/router';
-import {NgxWebstorageModule} from 'ngx-webstorage';
+import {BrowserModule}        from '@angular/platform-browser';
+import {NgModule}             from '@angular/core';
+import {FormsModule}          from '@angular/forms';
+import {HttpClientModule}     from '@angular/common/http';
+import {RouterModule}         from '@angular/router';
+import {NgxWebstorageModule}  from 'ngx-webstorage';
 
 import {AppComponent}         from './component/app.component';
 import {LoginComponent}       from './component/login.component';
@@ -14,7 +14,6 @@ import {UsersComponent}       from './component/users.component';
 import {AppService}           from './service/app.service';
 import {XHRHandler}           from './service/xhrhandler.service';
 import {AppDataService}       from './service/appdata.service';
-import {ChatWebsocketService} from './service/chatwebsocket.service';
 
 @NgModule({
   declarations: [
@@ -35,7 +34,7 @@ import {ChatWebsocketService} from './service/chatwebsocket.service';
       {path: 'home', component: ChatComponent}
     ])
   ],
-  providers: [AppService, XHRHandler, AppDataService, ChatWebsocketService],
+  providers: [AppService, XHRHandler, AppDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

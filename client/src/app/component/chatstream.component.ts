@@ -1,9 +1,8 @@
 import {Component}            from '@angular/core';
-import {Subject}              from 'rxjs';
 import {Message}              from '../data/message';
 import {AppDataService}       from '../service/appdata.service';
-import {ChatWebsocketService} from '../service/chatwebsocket.service'
 
+const WEBSOCKET_URL = 'ws://localhost:8185/websocket';
 
 @Component({
   selector: 'chat-stream',
@@ -17,20 +16,11 @@ export class ChatStreamComponent {
   showTypingIndicator: boolean = false;
   typingUser: string;
   loggedinUserId: number;
-  messages: Subject<Message>;
+  websocket: WebSocket;
 
-  constructor(chatWSService: ChatWebsocketService,
-              private appDataService: AppDataService) {
-    this.messages = chatWSService.getMessageSubscriptionStream();
-    this.messages.subscribe(message => {
-          if (message.type == "CHAT_MESSAGE") {
-            this.publishedMessage.push(message);
-          } else if (message.type == "USER_TYPING") {
-            this.showUserTypingIndicator(message.fromUserName);
-            setTimeout(this.hideUserTypingIndicator.bind(this), 1000);
-          }
-        });
-    
+  constructor(private appDataService: AppDataService) {
+    this.websocket = new WebSocket(WEBSOCKET_URL);
+    this.websocket.onmessage = this.handleMessage;
     this.loggedinUserId = this.appDataService.userId;
   }
 
@@ -44,7 +34,7 @@ export class ChatStreamComponent {
       fromUserName: this.appDataService.userName,
       message: msg
     }
-    this.messages.next(message);
+    this.websocket.send(JSON.stringify(message));
     this.publishedMessage.push(message);
     this.message = '';
   }
@@ -56,7 +46,17 @@ export class ChatStreamComponent {
       fromUserName: this.appDataService.userName,
       message: null
     }
-    this.messages.next(message);
+    this.websocket.send(JSON.stringify(message));
+  }
+
+  handleMessage(event: MessageEvent) {
+    let data = event.data; 
+    console.log(data);
+    if (data.type == 'CHAT_MESSAGE') {
+      this.publishedMessage.push(data);
+    } else if (data.type == 'USER_TYPING') {
+      this.showUserTypingIndicator(data.fromUserName);
+    }
   }
 
   showUserTypingIndicator(userName: string) {

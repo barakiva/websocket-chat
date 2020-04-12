@@ -1,20 +1,25 @@
 package com.chat.controller;
 
 import com.chat.pojo.LoginRequest;
-import com.chat.pojo.Message;
 import com.chat.pojo.User;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletResponse;
+
 @CrossOrigin
 @RestController
 public class AppController {
+
+	private List<User> validUsers = new ArrayList<>();
 	
 	@RequestMapping(value = "/user/login", method = RequestMethod.POST)
 	public User userLogin(@RequestBody LoginRequest loginRequest, HttpServletResponse response) {
@@ -37,8 +42,6 @@ public class AppController {
 	}
 	
 	private List<User> getValidUsers() {
-		List<User> validUsers = new ArrayList<>();
-		
 		if (!validUsers.isEmpty()) {
 			return validUsers;
 		} else {
@@ -47,12 +50,6 @@ public class AppController {
 			validUsers.add(new User(3, "Gollum"));
 			return validUsers;
 		}
-	}
-
-	@MessageMapping("/websocket")
-	@SendTo("/topic/messages")
-	public Message greeting(Message message) throws Exception {
-		return new Message("Message", 2, "Message message!");
 	}
 
 }
