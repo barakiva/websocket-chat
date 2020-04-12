@@ -13,7 +13,7 @@ $ cd websocket-chat
 $ cd server
 $ mvn spring-boot:run
 ```
-This will make the server to run on `http://localhost:8080`.
+This will make the server to run on `http://localhost:8185`.
 
 Open another terminal and navigate to the repo:
 
