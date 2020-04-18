@@ -1,4 +1,5 @@
 import {Component}        from '@angular/core';
+import {HostListener}     from '@angular/core';
 import {AppService}       from '../service/app.service';
 import {User}             from '../data/user';
 import {WebSocketService} from '../service/websocket.service';
@@ -20,7 +21,6 @@ export class UsersComponent {
               private websocketService: WebSocketService) {
     this.websocket = this.websocketService.createNew();
     this.websocket.onopen = (event: MessageEvent) => {
-      console.log("websocket is ready")
       let message: Message = {
         type: 'JOINED',
         from: this.appDataService.userId,
@@ -58,6 +58,17 @@ export class UsersComponent {
   setUserStatus(userId: Number, isOnline: boolean) {
     let user: User = this.users.find(u => u.id == userId);
     user.isOnline = isOnline;
+  }
+
+  @HostListener('window:beforeunload')
+  close() {
+    let message: Message = {
+      type: 'LEFT',
+      from: this.appDataService.userId,
+      fromUserName: this.appDataService.userName,
+      message: null
+    }
+    this.websocket.send(JSON.stringify(message));
   }
 
 }
