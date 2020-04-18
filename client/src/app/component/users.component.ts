@@ -1,6 +1,9 @@
-import {Component}  from '@angular/core';
-import {AppService} from '../service/app.service';
-import {Observable} from 'rxjs';
+import {Component}        from '@angular/core';
+import {AppService}       from '../service/app.service';
+import {User}             from '../data/user';
+import {WebSocketService} from '../service/websocket.service';
+import {AppDataService}   from '../service/appdata.service';
+import {Message}          from '../data/message';
 
 @Component({
   selector: 'users',
@@ -9,18 +12,42 @@ import {Observable} from 'rxjs';
 })
 export class UsersComponent {
 
-  users: any[] = new Array();
-  messages: Observable<any>;
+  users: User[] = new Array();
+  websocket: WebSocket;
 
-  constructor(private appService: AppService) {
+  constructor(private appService: AppService,
+              private appDataService: AppDataService,
+              private websocketService: WebSocketService) {
+    this.websocket = this.websocketService.createNew();
+    this.websocket.onopen = (event: MessageEvent) => {
+      console.log("websocket is ready")
+      let message: Message = {
+        type: 'JOINED',
+        from: this.appDataService.userId,
+        fromUserName: this.appDataService.userName,
+        message: null
+      }
+      this.websocket.send(JSON.stringify(message));
+    }
     this.initUserList();
+    this.startListening();
+  }
+
+  startListening() {
+    this.websocket.onmessage = (event: MessageEvent) => {
+      let message: Message = JSON.parse(event.data);
+      if (message.type == 'JOINED') {
+        this.setUserStatus(message.from, true);
+      } else if (message.type == 'LEFT') {
+        this.setUserStatus(message.from, false);
+      }
+    }
   }
 
   initUserList() {
     this.appService.listUser().subscribe(response => {
       this.users = response;
       this.setEachUserOnlineOffline();
-      console.log(this.users);
     });
   }
 
@@ -29,7 +56,8 @@ export class UsersComponent {
   }
 
   setUserStatus(userId: Number, isOnline: boolean) {
-    console.log(userId, isOnline);
+    let user: User = this.users.find(u => u.id == userId);
+    user.isOnline = isOnline;
   }
 
 }

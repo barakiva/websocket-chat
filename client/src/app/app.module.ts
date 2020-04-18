@@ -14,6 +14,7 @@ import {UsersComponent}       from './component/users.component';
 import {AppService}           from './service/app.service';
 import {XHRHandler}           from './service/xhrhandler.service';
 import {AppDataService}       from './service/appdata.service';
+import {WebSocketService}     from './service/websocket.service';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import {AppDataService}       from './service/appdata.service';
       {path: 'chat', component: ChatComponent}
     ])
   ],
-  providers: [AppService, XHRHandler, AppDataService],
+  providers: [AppService, XHRHandler, AppDataService, WebSocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

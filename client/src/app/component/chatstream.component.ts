@@ -1,8 +1,7 @@
 import {Component}            from '@angular/core';
 import {Message}              from '../data/message';
 import {AppDataService}       from '../service/appdata.service';
-
-const WEBSOCKET_URL = 'ws://localhost:8185/websocket';
+import {WebSocketService}     from '../service/websocket.service';
 
 @Component({
   selector: 'chat-stream',
@@ -18,18 +17,24 @@ export class ChatStreamComponent {
   loggedinUserId: number;
   websocket: WebSocket;
 
-  constructor(private appDataService: AppDataService) {
-    this.websocket = new WebSocket(WEBSOCKET_URL);
+  constructor(private appDataService: AppDataService,
+              private websocketService: WebSocketService) {
+    this.websocket = this.websocketService.createNew();
+    this.loggedinUserId = this.appDataService.userId;
+    this.startListening();
+  }
+
+  startListening() {
     this.websocket.onmessage = (event: MessageEvent) => {
       let message: Message = JSON.parse(event.data);
-      console.log(message);
       if (message.type == 'MESSAGE') {
         this.publishedMessage.push(message);
       } else if (message.type == 'TYPING') {
-        this.showUserTypingIndicator(message.fromUserName);
+        if (message.from != this.loggedinUserId) {
+          this.showUserTypingIndicator(message.fromUserName);
+        }
       }
     };
-    this.loggedinUserId = this.appDataService.userId;
   }
 
   sendMessage() {
@@ -60,10 +65,8 @@ export class ChatStreamComponent {
     this.typingUser = userName;
     this.showTypingIndicator = true;
     setTimeout(() => {
-      console.log('hide');
       this.hideUserTypingIndicator();
     }, 1000);
-    
   }
 
   hideUserTypingIndicator() {
