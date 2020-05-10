@@ -14,7 +14,7 @@ export class ChatComponent {
     this.loggedInUser = appDataService.userName;
   }
 
-  private doLogout(){
+  private doLogout() {
 
   }
 
